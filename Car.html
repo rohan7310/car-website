@@ -1,151 +1,1312 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Website</title>
+    <title>CarX — Premium Car Showcase</title>
+
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-        }
+      :root {
+        --bg: #0b0f17;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel2: rgba(255, 255, 255, 0.09);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.68);
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
+        --shadow2: 0 12px 28px rgba(0, 0, 0, 0.35);
+        --radius: 18px;
+        --blue: #2d7cff;
+        --blue2: #0b57d0;
+        --accent: #00aaff;
+        --accent2: #00ffcc;
+        --danger: #ff3d71;
+      }
 
-        /* NAVBAR */
-        nav {
-            background: #111;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        nav .logo {
-            color: #00aaff;
-            font-size: 24px;
-            font-weight: bold;
-        }
+      html,
+      body {
+        height: 100%;
+        scroll-behavior: smooth;
+      }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: radial-gradient(
+            1100px 600px at 10% -10%,
+            rgba(45, 124, 255, 0.28),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 550px at 90% 0%,
+            rgba(0, 255, 204, 0.16),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 650px at 50% 120%,
+            rgba(255, 255, 255, 0.08),
+            transparent 55%
+          ),
+          var(--bg);
+        color: var(--text);
+      }
 
-        nav ul li {
-            margin-left: 20px;
-        }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
 
-        nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            transition: 0.3s;
-        }
+      img {
+        max-width: 100%;
+        display: block;
+      }
 
-        nav ul li a:hover {
-            color: #00aaff;
-        }
+      .container {
+        width: min(1200px, 92%);
+        margin: 0 auto;
+      }
 
-        /* HERO SECTION */
-        .hero {
-            height: 80vh;
-            background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
+      /* NAVBAR */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(12px);
+        background: rgba(11, 15, 23, 0.72);
+        border-bottom: 1px solid var(--border);
+      }
 
-        .hero h1 {
-            font-size: 48px;
-            text-shadow: 0 0 10px black;
-        }
+      .nav-inner {
+        padding: 14px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
 
-        /* CAR CARDS */
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 950;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+      }
+
+      .logo-badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        padding: 6px;
+        background: linear-gradient(135deg, var(--accent), var(--blue));
+        box-shadow: 0 16px 40px rgba(0, 170, 255, 0.25),
+          0 14px 30px rgba(45, 124, 255, 0.2);
+        display: grid;
+        place-items: center;
+        transition: transform 0.25s ease;
+      }
+
+      .logo-badge svg {
+        width: 26px;
+        height: 26px;
+        filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+      }
+
+      .logo:hover .logo-badge {
+        transform: translateY(-2px) scale(1.05);
+      }
+
+      .logo span b {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.78);
+        padding: 10px 12px;
+        border-radius: 999px;
+        transition: 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        border: 0;
+        cursor: pointer;
+        font-weight: 900;
+        padding: 10px 14px;
+        border-radius: 14px;
+        transition: transform 0.12s ease, filter 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        white-space: nowrap;
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, var(--blue2), var(--blue));
+        color: #fff;
+        box-shadow: 0 16px 36px rgba(11, 87, 208, 0.25);
+      }
+
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .btn:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .hamburger {
+        display: none;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 10px 12px;
+        cursor: pointer;
+      }
+
+      .hamburger svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: inline-flex;
+        }
+      }
+
+      /* HERO */
+      .hero {
+        position: relative;
+        padding: 58px 0 28px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        align-items: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(34px, 4vw, 56px);
+        font-weight: 950;
+        line-height: 1.05;
+        letter-spacing: -0.6px;
+      }
+
+      .hero h1 .grad {
+        background: linear-gradient(135deg, #fff, #a9d5ff, #00ffcc);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero p {
+        margin: 12px 0 18px;
+        color: var(--muted);
+        line-height: 1.6;
+        max-width: 56ch;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .stat-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.05)
+        );
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px 14px;
+        box-shadow: var(--shadow2);
+        min-width: 150px;
+      }
+
+      .stat b {
+        font-size: 18px;
+      }
+
+      .stat small {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+      }
+
+      .hero-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.05)
+        );
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        position: relative;
+      }
+
+      .hero-card img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        filter: saturate(1.1) contrast(1.05);
+      }
+
+      .hero-card .badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent2);
+        box-shadow: 0 0 0 4px rgba(0, 255, 204, 0.18);
+      }
+
+      .hero-card .caption {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(12px);
+        border-radius: 18px;
+        padding: 12px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .caption h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .caption p {
+        margin: 2px 0 0;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .chip {
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-weight: 900;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      /* SECTION HEAD */
+      .section {
+        padding: 30px 0;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(18px, 2.2vw, 26px);
+        font-weight: 950;
+      }
+
+      .section-head a {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        transition: 0.2s ease;
+      }
+
+      .section-head a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        transform: translateY(-1px);
+      }
+
+      /* FILTER BAR */
+      .filter {
+        display: grid;
+        grid-template-columns: 1.2fr 0.7fr 0.7fr 0.6fr;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 10px;
+        box-shadow: var(--shadow2);
+        margin-top: 12px;
+      }
+
+      @media (max-width: 900px) {
+        .filter {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .field {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 12px 12px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .field input,
+      .field select {
+        width: 100%;
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .field input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .field select option {
+        color: #000;
+      }
+
+      .field svg {
+        width: 18px;
+        height: 18px;
+        opacity: 0.8;
+      }
+
+      /* GRID OF CARS */
+      .cars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      @media (max-width: 1000px) {
         .cars {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
 
-        .card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: 0.3s;
+      @media (max-width: 650px) {
+        .cars {
+          grid-template-columns: 1fr;
         }
+      }
 
-        .card:hover {
-            transform: scale(1.03);
-        }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.05)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--shadow2);
+        transition: transform 0.2s ease, border-color 0.2s ease,
+          box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .card img {
-            width: 100%;
-            border-radius: 8px;
-        }
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: var(--shadow);
+      }
 
-        .card h3 {
-            margin: 10px 0 5px;
-        }
+      .media {
+        position: relative;
+        padding: 12px;
+      }
 
-        footer {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 40px;
+      .media img {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+        border-radius: 16px;
+        filter: saturate(1.08) contrast(1.03);
+      }
+
+      .tag {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(10px);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .tag .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.18);
+      }
+
+      .card-body {
+        padding: 0 14px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+      }
+
+      .card-body h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 950;
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .specs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .spec {
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .price {
+        font-weight: 950;
+        font-size: 18px;
+        letter-spacing: 0.2px;
+      }
+
+      .mini {
+        padding: 10px 12px;
+        border-radius: 14px;
+      }
+
+      .mini.primary {
+        background: linear-gradient(135deg, var(--accent), var(--blue));
+      }
+
+      /* FEATURES STRIP */
+      .features {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      @media (max-width: 900px) {
+        .features {
+          grid-template-columns: 1fr;
         }
+      }
+
+      .feature {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        padding: 16px;
+        box-shadow: var(--shadow2);
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .feature .ico {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 170, 255, 0.25),
+          rgba(0, 255, 204, 0.2)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        display: grid;
+        place-items: center;
+      }
+
+      .feature .ico svg {
+        width: 22px;
+        height: 22px;
+        opacity: 0.95;
+      }
+
+      .feature h4 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 950;
+      }
+
+      .feature p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 13px;
+      }
+
+      /* TESTIMONIAL + ABOUT */
+      .split {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+      }
+
+      @media (max-width: 900px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .panel {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.05)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: var(--shadow2);
+      }
+
+      .panel h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        font-weight: 950;
+      }
+
+      .quote {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.7;
+      }
+
+      .quote b {
+        color: #fff;
+      }
+
+      .person {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent), var(--blue));
+        display: grid;
+        place-items: center;
+        font-weight: 950;
+      }
+
+      /* CONTACT */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      @media (max-width: 900px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      form {
+        display: grid;
+        gap: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        padding: 12px 12px;
+        color: var(--text);
+        outline: none;
+        font-size: 14px;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      /* FOOTER */
+      footer {
+        margin-top: 18px;
+        padding: 26px 0 44px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 13px;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-links a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
 
+  <body>
     <!-- NAVBAR -->
     <nav>
-        <div class="logo">CarX</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#cars">Cars</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+      <div class="container nav-inner">
+        <a class="logo" href="#home" aria-label="CarX home">
+          <div class="logo-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3 14.5l1.7-5.2c.4-1.2 1.5-2 2.8-2h9c1.3 0 2.4.8 2.8 2l1.7 5.2"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M6.5 17.5h-1C4.1 17.5 3 16.4 3 15v-.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2V15c0 1.4-1.1 2.5-2.5 2.5h-1"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M7 17.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <span>Car<b>X</b></span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#inventory">Inventory</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
+
+        <div class="nav-actions">
+          <a class="btn ghost" href="#inventory">Browse Cars</a>
+          <a class="btn primary" href="#contact">Get Quote</a>
+
+          <button class="hamburger" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M5 7h14M5 12h14M5 17h14"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-        <h1>Explore the Latest Cars</h1>
+    <!-- HERO -->
+    <header class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <h1>
+            Discover premium cars with a <span class="grad">smooth buying</span>
+            experience.
+          </h1>
+          <p>
+            Explore verified listings, compare performance specs, and request a
+            quote instantly — a modern UI concept for car discovery.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#inventory">Explore Inventory</a>
+            <a class="btn ghost" href="#contact">Book Test Drive</a>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat">
+              <b>250+</b>
+              <small>Curated listings</small>
+            </div>
+            <div class="stat">
+              <b>24/7</b>
+              <small>Support experience</small>
+            </div>
+            <div class="stat">
+              <b>Fast</b>
+              <small>Quote in minutes</small>
+            </div>
+          </div>
+
+          <div class="filter" aria-label="Search cars">
+            <div class="field">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
+                  stroke="white"
+                  stroke-width="2"
+                />
+                <path
+                  d="M21 21l-4.2-4.2"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <input placeholder="Search model, brand..." />
+            </div>
+
+            <div class="field">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 9h12M6 15h12"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <select>
+                <option>Category</option>
+                <option>Sports</option>
+                <option>Luxury</option>
+                <option>SUV</option>
+                <option>Electric</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z"
+                  stroke="white"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"
+                  stroke="white"
+                  stroke-width="2"
+                />
+              </svg>
+              <select>
+                <option>Location</option>
+                <option>Mumbai</option>
+                <option>Pune</option>
+                <option>Delhi</option>
+                <option>Bengaluru</option>
+              </select>
+            </div>
+
+            <a class="btn primary" href="#inventory">Filter</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Featured car">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Featured • Limited stock
+          </div>
+
+          <img
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80"
+            alt="Featured sports car"
+          />
+
+          <div class="caption">
+            <div>
+              <h3>2025 Performance Series</h3>
+              <p>Instant quote • Verified seller</p>
+            </div>
+            <span class="chip">From ₹18.5L</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- INVENTORY -->
+    <section class="section" id="inventory">
+      <div class="container">
+        <div class="section-head">
+          <h2>Trending Inventory</h2>
+          <a href="#contact">Request custom quote →</a>
+        </div>
+
+        <div class="cars">
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> Sports</span>
+              <img
+                src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80"
+                alt="BMW M4"
+              />
+            </div>
+            <div class="card-body">
+              <h3>BMW M4 Competition</h3>
+              <p class="sub">
+                High performance coupe with track-ready handling and premium
+                comfort.
+              </p>
+              <div class="specs">
+                <span class="spec">503 HP</span>
+                <span class="spec">Automatic</span>
+                <span class="spec">Petrol</span>
+                <span class="spec">0–100: 3.8s</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 95L</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> Luxury</span>
+              <img
+                src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80"
+                alt="Audi R8"
+              />
+            </div>
+            <div class="card-body">
+              <h3>Audi R8 V10</h3>
+              <p class="sub">
+                Supercar presence with daily usability and legendary V10 sound.
+              </p>
+              <div class="specs">
+                <span class="spec">602 HP</span>
+                <span class="spec">Automatic</span>
+                <span class="spec">AWD</span>
+                <span class="spec">0–100: 3.2s</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 2.2Cr</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> Supercar</span>
+              <img
+                src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80"
+                alt="Lamborghini Huracan"
+              />
+            </div>
+            <div class="card-body">
+              <h3>Lamborghini Huracán</h3>
+              <p class="sub">
+                Iconic design, explosive acceleration, and head-turning road
+                presence.
+              </p>
+              <div class="specs">
+                <span class="spec">631 HP</span>
+                <span class="spec">Automatic</span>
+                <span class="spec">Petrol</span>
+                <span class="spec">0–100: 2.9s</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 3.4Cr</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> Electric</span>
+              <img
+                src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1200&q=80"
+                alt="Electric car"
+              />
+            </div>
+            <div class="card-body">
+              <h3>Electric Performance</h3>
+              <p class="sub">
+                Silent power, instant torque, and modern cabin tech built for
+                efficiency.
+              </p>
+              <div class="specs">
+                <span class="spec">Dual Motor</span>
+                <span class="spec">350km+</span>
+                <span class="spec">Fast Charge</span>
+                <span class="spec">0–100: 4.1s</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 38L</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> SUV</span>
+              <img
+                src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+                alt="SUV"
+              />
+            </div>
+            <div class="card-body">
+              <h3>Premium SUV Series</h3>
+              <p class="sub">
+                Spacious cabin, strong road stance, and advanced safety features
+                for families.
+              </p>
+              <div class="specs">
+                <span class="spec">Diesel</span>
+                <span class="spec">Automatic</span>
+                <span class="spec">7 Seater</span>
+                <span class="spec">Top Safety</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 24L</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media">
+              <span class="tag"><span class="dot"></span> Budget</span>
+              <img
+                src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=80"
+                alt="City car"
+              />
+            </div>
+            <div class="card-body">
+              <h3>City Commuter</h3>
+              <p class="sub">
+                Practical, fuel-efficient, and perfect for daily driving with
+                modern features.
+              </p>
+              <div class="specs">
+                <span class="spec">Petrol</span>
+                <span class="spec">Manual</span>
+                <span class="spec">20km/l+</span>
+                <span class="spec">Low Maintenance</span>
+              </div>
+              <div class="card-footer">
+                <span class="price">₹ 7.5L</span>
+                <a class="btn mini primary" href="#contact">Get Quote</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="features" id="features">
+          <div class="feature">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 11l3 3 7-7"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 22c5 0 9-4 9-9 0-5-4-9-9-9S3 8 3 13c0 5 4 9 9 9Z"
+                  stroke="white"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4>Verified Listings</h4>
+              <p>
+                Every listing includes clear specs, curated images, and seller
+                validation for trust.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 1v22"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M5 8h14M5 16h14"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4>Compare Quickly</h4>
+              <p>
+                Use tags like HP, fuel type, and acceleration to compare models
+                instantly.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 8v5l3 2"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  stroke="white"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4>Fast Quotes</h4>
+              <p>
+                One-click quote and test drive requests — minimal friction,
+                faster decisions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- CAR CARDS -->
-    <section class="cars" id="cars">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea" />
-            <h3>BMW M4</h3>
-            <p>High performance sports car.</p>
+    <!-- ABOUT + TESTIMONIAL -->
+    <section class="section" id="about">
+      <div class="container split">
+        <div class="panel">
+          <h3>About CarX</h3>
+          <p class="quote">
+            CarX is a <b>modern car discovery UI</b> concept built to showcase
+            clean design, responsive layouts, and premium product cards. It’s
+            designed for fast browsing, quick comparisons, and clear CTAs.
+          </p>
+          <p class="note">
+            This page is a front-end project that demonstrates sections, cards,
+            responsive grid, and modern styling (glass + gradients).
+          </p>
         </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d" />
-            <h3>Audi R8</h3>
-            <p>Luxury and power combined.</p>
+        <div class="panel">
+          <h3>What users say</h3>
+          <p class="quote">
+            “The interface is super clean. I can compare models fast and request
+            a quote without confusion.”
+          </p>
+          <div class="person">
+            <div class="avatar">A</div>
+            <div>
+              <b>Aarav</b>
+              <div class="note">Buyer • Pune</div>
+            </div>
+          </div>
         </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a" />
-            <h3>Lamborghini Huracán</h3>
-            <p>Experience ultimate speed.</p>
-        </div>
+      </div>
     </section>
 
-    <footer>
-        <p>© 2025 CarX | All Rights Reserved</p>
-    </footer>
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <a href="#home">Back to top ↑</a>
+        </div>
 
-</body>
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Request a quote / test drive</h3>
+            <p class="note">
+              Share your details and the car you’re interested in. This is a UI
+              form demo (no backend).
+            </p>
+            <form
+              onsubmit="event.preventDefault(); alert('Form submitted (demo)!');"
+            >
+              <input placeholder="Full name" required />
+              <input placeholder="Email address" type="email" required />
+              <input placeholder="Phone number" required />
+              <input placeholder="Car model (e.g., BMW M4)" />
+              <textarea placeholder="Message / requirements"></textarea>
+              <button class="btn primary" type="submit">Submit</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3>Business info</h3>
+            <p class="note">
+              <b>Support:</b> support@carx-demo.com <br />
+              <b>Sales:</b> sales@carx-demo.com <br />
+              <b>Location:</b> India (Demo UI)
+            </p>
+            <div class="note">
+              <b>Open hours:</b> Mon–Sat • 10 AM – 7 PM <br /><br />
+              Follow us:
+              <div class="footer-links" style="margin-top: 8px">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <div class="container footer-row">
+            <div>© <span id="year"></span> CarX • Premium Car UI</div>
+            <div class="footer-links">
+              <a href="#inventory">Inventory</a>
+              <a href="#features">Features</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
